@@ -20,6 +20,37 @@ module.exports = defineConfig({
   // productionSourceMap: false,
 
   // 7. 开发服务器配置
+  // 示例
+  /* devServer: {
+    port: 8080, // 本地开发端口
+    open: true, // 启动后自动打开浏览器
+    proxy: {
+      // 解决开发环境跨域问题
+      '/api': {
+        target: 'http://localhost:3000', // 代理目标 API 服务器
+        // ws: true, // 用于支持websocket（可以不写，不写默认true）
+        changeOrigin: true, // 用于控制请求头中的host值（可以不写，不写默认true）
+        pathRewrite: { '^/api': '' }, // 路径重写
+      },
+    },
+  }, */
+  devServer: {
+    proxy: {
+      // 解决开发环境跨域问题
+      '/nanstudio_students': {
+        target: 'http://localhost:5002', // 代理目标 API 服务器
+        // ws: true, // 用于支持websocket（可以不写，不写默认true）
+        changeOrigin: true, // 用于控制请求头中的host值（可以不写，不写默认true）
+        pathRewrite: { '^/nanstudio_students': '' }, // 路径重写
+      },
+      '/nanstudio_cars': {
+        target: 'http://localhost:5001/', // 代理目标 API 服务器
+        // ws: true, // 用于支持websocket（可以不写，不写默认true）
+        changeOrigin: true, // 用于控制请求头中的host值（可以不写，不写默认true）
+        pathRewrite: { '^/nanstudio_cars': '' }, // 路径重写
+      }
+    },
+  },
 
   // 8. 多页面应用配置
   // 如果是单页面应用（SPA），可以去掉 pages
